@@ -98,11 +98,11 @@ class AddProductActivity : AppCompatActivity() {
 
     fun uploadImage() {
         imageUri?.let {
-            productViewModel.uploadImages(it) { success, imageName, imageUrl ->
+            productViewModel.uploadImages(it) { success, imageName, imageUrl,message ->
                 if(success){
                     addProduct(imageUrl,imageName)
                 }else{
-
+                    Toast.makeText(applicationContext,message,Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -120,6 +120,7 @@ class AddProductActivity : AppCompatActivity() {
             success, message ->
             if(success){
                 Toast.makeText(applicationContext,message,Toast.LENGTH_LONG).show()
+                finish()
             }else{
                 Toast.makeText(applicationContext,message,Toast.LENGTH_LONG).show()
             }

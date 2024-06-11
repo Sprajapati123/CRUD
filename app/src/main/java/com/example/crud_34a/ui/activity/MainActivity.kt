@@ -66,31 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
         }).attachToRecyclerView(mainBinding.recyclerView)
 
-        ref.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
 
-                productList.clear()
-                for (eachData in snapshot.children){
-                    var product = eachData.getValue(ProductModel::class.java)
-                    if(product !=null){
-                        Log.d("my data", product.productName)
-                        Log.d("my data", product.productDesc)
-                        Log.d("my data", product.productPrice.toString())
-
-                        productList.add(product)
-                    }
-
-
-                    mainBinding.recyclerView.layoutManager =
-                        LinearLayoutManager(this@MainActivity)
-                    mainBinding.recyclerView.adapter = productAdapter
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
 
         mainBinding.floatingActionButton.setOnClickListener {
             var intent = Intent(this@MainActivity,
