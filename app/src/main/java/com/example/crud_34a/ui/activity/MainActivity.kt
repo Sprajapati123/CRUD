@@ -15,6 +15,7 @@ import com.example.crud_34a.R
 import com.example.crud_34a.adapter.ProductAdapter
 import com.example.crud_34a.databinding.ActivityMainBinding
 import com.example.crud_34a.model.ProductModel
+import com.example.crud_34a.viewmodel.ProductViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -26,45 +27,48 @@ import com.google.firebase.storage.StorageReference
 class MainActivity : AppCompatActivity() {
     lateinit var mainBinding: ActivityMainBinding
 
-    var firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
-    var ref : DatabaseReference = firebaseDatabase.reference.child("products")
-
-    var firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
-    var storageReference: StorageReference = firebaseStorage.reference
 
     lateinit var productAdapter: ProductAdapter
-    var productList = ArrayList<ProductModel>()
+
+    lateinit var productViewModel: ProductViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
-        productAdapter= ProductAdapter(this@MainActivity,productList)
+        productAdapter= ProductAdapter(this@MainActivity,ArrayList())
 
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT){
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                TODO("Not yet implemented")
-            }
+        productViewModel.fetchAllProducts()
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                var id = productAdapter.getProductID(viewHolder.adapterPosition)
-                var imageName = productAdapter.getImageName(viewHolder.adapterPosition)
-                ref.child(id).removeValue().addOnCompleteListener {
-                    if(it.isSuccessful){
+        productViewModel.productList.observe(this){
 
-                        storageReference.child("products").
-                        child(imageName).delete()
+        }
 
-                        Toast.makeText(applicationContext,"Deleted",Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
-        }).attachToRecyclerView(mainBinding.recyclerView)
+
+//        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT){
+//            override fun onMove(
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder,
+//                target: RecyclerView.ViewHolder
+//            ): Boolean {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                var id = productAdapter.getProductID(viewHolder.adapterPosition)
+//                var imageName = productAdapter.getImageName(viewHolder.adapterPosition)
+//                ref.child(id).removeValue().addOnCompleteListener {
+//                    if(it.isSuccessful){
+//
+//                        storageReference.child("products").
+//                        child(imageName).delete()
+//
+//                        Toast.makeText(applicationContext,"Deleted",Toast.LENGTH_LONG).show()
+//                    }
+//                }
+//            }
+//        }).attachToRecyclerView(mainBinding.recyclerView)
 
 
 
