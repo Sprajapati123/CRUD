@@ -3,6 +3,7 @@ package com.example.crud_34a.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +43,17 @@ class MainActivity : AppCompatActivity() {
         productViewModel.fetchAllProducts()
 
         productViewModel.productList.observe(this){
+            it?.let { products ->
+                productAdapter.updateData(products)
+            }
+        }
+        productViewModel.loadingState.observe(this){loadingState->
+            if(loadingState){
+                mainBinding.progressMain.visibility = View.VISIBLE
+            }else{
+                mainBinding.progressMain.visibility = View.GONE
 
+            }
         }
 
 
