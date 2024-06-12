@@ -8,9 +8,14 @@ import com.example.crud_34a.repository.ProductRepository
 
 class ProductViewModel(val repository: ProductRepository) : ViewModel() {
 
-    fun uploadImages(imageUri: Uri, callback: (Boolean, String?, String?,String?) -> Unit) {
-        repository.uploadImages(imageUri) { success, imageUrl, imageName,message ->
-            callback(success, imageUrl, imageName,message)
+    fun updateProducts(id:String,data: MutableMap<String,Any>?,
+                       callback: (Boolean, String?) -> Unit){
+        repository.updateProducts(id,data,callback)
+    }
+
+    fun uploadImages(imageName:String,imageUri: Uri, callback: (Boolean, String?,String?) -> Unit) {
+        repository.uploadImages(imageName,imageUri) { success, imageUrl,message ->
+            callback(success, imageUrl,message)
         }
     }
     fun addProducts(productModel: ProductModel, callback: (Boolean, String?) -> Unit){

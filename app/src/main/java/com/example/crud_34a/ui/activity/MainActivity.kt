@@ -16,6 +16,7 @@ import com.example.crud_34a.R
 import com.example.crud_34a.adapter.ProductAdapter
 import com.example.crud_34a.databinding.ActivityMainBinding
 import com.example.crud_34a.model.ProductModel
+import com.example.crud_34a.repository.ProductRepositoryImpl
 import com.example.crud_34a.viewmodel.ProductViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -33,12 +34,17 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var productViewModel: ProductViewModel
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
         productAdapter= ProductAdapter(this@MainActivity,ArrayList())
+
+        var repo = ProductRepositoryImpl()
+        productViewModel = ProductViewModel(repo)
 
         productViewModel.fetchAllProducts()
 
@@ -52,8 +58,15 @@ class MainActivity : AppCompatActivity() {
                 mainBinding.progressMain.visibility = View.VISIBLE
             }else{
                 mainBinding.progressMain.visibility = View.GONE
-
             }
+        }
+
+//        mainBinding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+//        mainBinding.recyclerView.adapter = productAdapter
+
+        mainBinding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = productAdapter
         }
 
 
