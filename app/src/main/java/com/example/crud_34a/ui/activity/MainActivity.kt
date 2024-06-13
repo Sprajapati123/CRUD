@@ -83,6 +83,18 @@ class MainActivity : AppCompatActivity() {
                 var id = productAdapter.getProductID(viewHolder.adapterPosition)
                 var imageName = productAdapter.getImageName(viewHolder.adapterPosition)
 
+                productViewModel.deleteProducts(id){
+                    success,message->
+                    if(success){
+                        productViewModel.deleteImage(imageName){
+                                success,message->
+                        }
+                        Toast.makeText(applicationContext,message,Toast.LENGTH_LONG).show()
+                    }else{
+
+                        Toast.makeText(applicationContext,message,Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }).attachToRecyclerView(mainBinding.recyclerView)
 
