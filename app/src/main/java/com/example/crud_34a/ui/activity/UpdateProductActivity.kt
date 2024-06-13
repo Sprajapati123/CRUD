@@ -59,6 +59,7 @@ class UpdateProductActivity : AppCompatActivity() {
         setContentView(updateProductBinding.root)
 
         imageUtils = ImageUtils(this)
+
         var repo = ProductRepositoryImpl()
         productViewModel = ProductViewModel(repo)
 
