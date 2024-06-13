@@ -12,6 +12,7 @@ interface ProductRepository {
                                   String?) -> Unit)
     fun updateProducts(id:String,data: MutableMap<String,Any>?,
                        callback: (Boolean, String?) -> Unit)
+
     fun deleteProducts(id: String,callback: (Boolean, String?) -> Unit)
     fun deleteImage(imageName: String,callback: (Boolean, String?) -> Unit)
 }

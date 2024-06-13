@@ -22,49 +22,52 @@ class ProductRepositoryImpl : ProductRepository {
     var storageReference: StorageReference = firebaseStorage.reference.child("products")
     override fun addProducts(productModel: ProductModel, callback: (Boolean, String?) -> Unit) {
         var id = ref.push().key.toString()
-       productModel.id = id
+        productModel.id = id
 
         ref.child(id).setValue(productModel).addOnCompleteListener {
             if (it.isSuccessful) {
-               callback(true,"Product added successfully")
+                callback(true, "Product added successfully")
             } else {
-                callback(false,"Unable to add Products")
+                callback(false, "Unable to add Products")
             }
         }
     }
 
-    override fun uploadImages(imageName:String,imageUri: Uri, callback: (Boolean, String?,String?) -> Unit) {
+    override fun uploadImages(
+        imageName: String,
+        imageUri: Uri,
+        callback: (Boolean, String?, String?) -> Unit
+    ) {
 //
-        var imageReference = storageReference.child("products").
-        child(imageName)
-        imageUri.let {url->
+        var imageReference = storageReference.child("products").child(imageName)
+        imageUri.let { url ->
             imageReference.putFile(url).addOnSuccessListener {
-                imageReference.downloadUrl.addOnSuccessListener {url->
-                    var imageUrl =  url.toString()
-                   callback(true,imageUrl,"Upload success")
+                imageReference.downloadUrl.addOnSuccessListener { url ->
+                    var imageUrl = url.toString()
+                    callback(true, imageUrl, "Upload success")
                 }
             }.addOnFailureListener {
-               callback(false,"","Failed to load image")
+                callback(false, "", "Failed to load image")
             }
         }
 
     }
 
     override fun getAllProducts(callback: (List<ProductModel>?, Boolean, String?) -> Unit) {
-        ref.addValueEventListener(object: ValueEventListener {
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-               var productList = mutableListOf<ProductModel>()
-                for (eachData in snapshot.children){
+                var productList = mutableListOf<ProductModel>()
+                for (eachData in snapshot.children) {
                     var product = eachData.getValue(ProductModel::class.java)
-                    if(product !=null){
+                    if (product != null) {
                         productList.add(product)
                     }
                 }
-                callback(productList,true,"Product fetched successfully")
+                callback(productList, true, "Product fetched successfully")
             }
 
             override fun onCancelled(error: DatabaseError) {
-               callback(null,false,"Unable to fetch ${error.message}")
+                callback(null, false, "Unable to fetch ${error.message}")
             }
         })
     }
@@ -76,21 +79,35 @@ class ProductRepositoryImpl : ProductRepository {
     ) {
         data?.let {
             ref.child(id).updateChildren(it).addOnCompleteListener {
-                if(it.isSuccessful){
-                   callback(true,"Data has been updated")
-                }else{
-                   callback(false,"Unable to upload data")
+                if (it.isSuccessful) {
+                    callback(true, "Data has been updated")
+                } else {
+                    callback(false, "Unable to upload data")
                 }
             }
         }
     }
 
     override fun deleteProducts(id: String, callback: (Boolean, String?) -> Unit) {
-        TODO("Not yet implemented")
+        ref.child(id).removeValue().addOnCompleteListener {
+            if (it.isSuccessful) {
+                callback(true, "Product deleted")
+            } else {
+                callback(false, "unable to delete product")
+            }
+        }
     }
 
     override fun deleteImage(imageName: String, callback: (Boolean, String?) -> Unit) {
-        TODO("Not yet implemented")
+
+        storageReference.child("products").child(imageName).delete().addOnCompleteListener {
+            if (it.isSuccessful) {
+                callback(true, "Image deleted")
+            } else {
+                callback(false, "unable to delete image")
+            }
+        }
+
     }
 
 }

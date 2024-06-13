@@ -70,29 +70,21 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-//        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT){
-//            override fun onMove(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder,
-//                target: RecyclerView.ViewHolder
-//            ): Boolean {
-//                TODO("Not yet implemented")
-//            }
-//
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                var id = productAdapter.getProductID(viewHolder.adapterPosition)
-//                var imageName = productAdapter.getImageName(viewHolder.adapterPosition)
-//                ref.child(id).removeValue().addOnCompleteListener {
-//                    if(it.isSuccessful){
-//
-//                        storageReference.child("products").
-//                        child(imageName).delete()
-//
-//                        Toast.makeText(applicationContext,"Deleted",Toast.LENGTH_LONG).show()
-//                    }
-//                }
-//            }
-//        }).attachToRecyclerView(mainBinding.recyclerView)
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                var id = productAdapter.getProductID(viewHolder.adapterPosition)
+                var imageName = productAdapter.getImageName(viewHolder.adapterPosition)
+
+            }
+        }).attachToRecyclerView(mainBinding.recyclerView)
 
 
 
