@@ -41,6 +41,7 @@ class ProductViewModel(val repository: ProductRepository) : ViewModel() {
         _loadingState.value = true
         repository.getAllProducts { products, success,message ->
             if(products!=null){
+
                 _loadingState.value = false
                 _productList.value = products
             }

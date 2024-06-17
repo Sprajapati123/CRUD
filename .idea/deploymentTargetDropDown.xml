@@ -18,8 +18,24 @@
           <timeTargetWasSelectedWithDropDown value="2024-05-27T02:00:59.138381900Z" />
         </State>
       </entry>
-      <entry key="app">
+      <entry key="SensorDashBoardActivity">
         <State />
+      </entry>
+      <entry key="app">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\sandi\.android\avd\Pixel_6a_API_30.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-06-13T06:12:41.030623200Z" />
+        </State>
       </entry>
     </value>
   </component>

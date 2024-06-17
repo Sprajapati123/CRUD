@@ -10,6 +10,8 @@ interface ProductRepository {
 
     fun getAllProducts(callback: (List<ProductModel>?, Boolean,
                                   String?) -> Unit)
+
+
     fun updateProducts(id:String,data: MutableMap<String,Any>?,
                        callback: (Boolean, String?) -> Unit)
 
