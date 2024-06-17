@@ -54,6 +54,8 @@ class AccelerometerActivity : AppCompatActivity(), SensorEventListener {
         var yAxis = values[1]
         var zAxis = values[2]
 
+        accelerometerBinding.lblData.text =
+            "X-Axis: $xAxis y-Axis: $yAxis z-Axis: $zAxis"
 
     }
 
