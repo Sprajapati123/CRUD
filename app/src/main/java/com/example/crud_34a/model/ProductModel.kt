@@ -43,4 +43,16 @@ data class ProductModel(
             return arrayOfNulls(size)
         }
     }
+
+    fun setId(id: String){
+        this.id = id
+    }
+
+    fun setName(name:String){
+        this.productName = name
+    }
+
+    fun setPrice(price:Int){
+        this.productPrice = price
+    }
 }
