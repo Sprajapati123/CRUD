@@ -18,19 +18,32 @@ class LightSensorActivity : AppCompatActivity(),SensorEventListener {
     lateinit var sensor: Sensor
     lateinit var sensorManager: SensorManager
 
+    override fun onPause() {
+        sensorManager.unregisterListener(this)
+        super.onPause()
+    }
+
+    override fun onResume() {
+        sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_NORMAL)
+        super.onResume()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         lightSensorBinding = ActivityLightSensorBinding.inflate(layoutInflater)
         setContentView(lightSensorBinding.root)
 
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         if(!checkSensor()){
             Toast.makeText(applicationContext,"Sensor not supported",
                 Toast.LENGTH_LONG
                 ).show()
             return
         }else{
-
+            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)!!
+            sensorManager.registerListener(this,sensor,
+                SensorManager.SENSOR_DELAY_NORMAL)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -50,8 +63,14 @@ class LightSensorActivity : AppCompatActivity(),SensorEventListener {
         return sensor
     }
 
-    override fun onSensorChanged(p0: SensorEvent?) {
+    override fun onSensorChanged(event: SensorEvent?) {
+        val values = event!!.values[0]
+        if(values >100){
+            lightSensorBinding.imgLight.setImageResource(R.drawable.light_off)
+        }else{
+            lightSensorBinding.imgLight.setImageResource(R.drawable.light_on)
 
+        }
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {

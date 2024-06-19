@@ -114,12 +114,9 @@ class AddProductActivity : AppCompatActivity() {
         var desc: String = addProductBinding.editTextDesc.text.toString()
         var price: Int = addProductBinding.editTextPrice.text.toString().toInt()
 
-//        var data = ProductModel("",productName,price,desc,
-//            url.toString(),imageName.toString())
-        var data = ProductModel()
-        data.setId("")
-        data.setName(productName)
-        data.setPrice(price)
+        var data = ProductModel("",productName,price,desc,
+            url.toString(),imageName.toString())
+
 
         productViewModel.addProducts(data){
             success, message ->
