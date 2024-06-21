@@ -45,6 +45,15 @@ class NotificationActivity : AppCompatActivity() {
 
             manager.createNotificationChannel(channel)
 
+            builder.setSmallIcon(R.drawable.baseline_add_a_photo_24)
+                .setContentTitle("Routine update")
+                .setContentText("Your class for sunday has not been cancelled")
+
+        }else{
+            builder.setSmallIcon(R.drawable.baseline_add_a_photo_24)
+                .setContentTitle("Routine update")
+                .setContentText("Your class for sunday has not been cancelled")
+
         }
 
 
