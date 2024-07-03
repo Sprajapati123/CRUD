@@ -18,6 +18,9 @@
           <timeTargetWasSelectedWithDropDown value="2024-05-27T02:00:59.138381900Z" />
         </State>
       </entry>
+      <entry key="NotificationActivity">
+        <State />
+      </entry>
       <entry key="SensorDashBoardActivity">
         <State />
       </entry>
@@ -36,6 +39,9 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-06-13T06:12:41.030623200Z" />
         </State>
+      </entry>
+      <entry key="checkSum()">
+        <State />
       </entry>
     </value>
   </component>
